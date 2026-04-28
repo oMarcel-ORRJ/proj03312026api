@@ -25,4 +25,20 @@ public class ProdutoService {
     public Produto save(Produto produto){
         return produtoRepository.save(produto);
     }
+
+    public Produto update(Long id, Produto produtoAtualizado){
+        Optional<Produto> produtoExistente = produtoRepository.findById(id);
+
+        if (produtoExistente.isPresent()){
+            Produto produto = produtoExistente.get();
+            produto.setNome(produtoAtualizado.getNome());
+            produto.setPreco(produtoAtualizado.getPreco());
+            produto.setQuantidade(produtoAtualizado.getQuantidade());
+            return produtoRepository.save(produto);
+        }
+        return null;
+    }
+    public void delete(Long id){
+        produtoRepository.deleteById(id);
+    }
 }
